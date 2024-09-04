@@ -1,0 +1,27 @@
+{
+  "horse": {
+    "6": {
+      "title": "set horse",
+      "icon": {
+        "stack": "{Count:1b,id:\"minecraft:leather_horse_armor\"}"
+      },
+      "action": {
+        "key": {
+          "key": "key.callhorse.desc",
+          "toggle": false
+        }
+      }
+    }
+  },
+  "main": {
+    "5": {
+      "title": "horse",
+      "icon": {
+        "stack": "{Count:1b,id:\"minecraft:saddle\"}"
+      },
+      "action": {
+        "category": "horse"
+      }
+    }
+  }
+}
