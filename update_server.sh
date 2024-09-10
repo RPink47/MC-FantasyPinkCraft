@@ -28,9 +28,10 @@ while getopts "mpco" opt; do
             done
 
             cat ~/tmp.json | jq -r '.[] | select(.type=="dir") | .url' | while read dir_url; do
-                name= basename $dir_url
+                [[$dir_url =~ /([\w\-]+)\?ref=main]]
+                name=${BASH_REMATCH[1]}
                 curl -s "https://api.github.com/repos/RPink47/MC-FantasyPinkCraft/contents/instalations/config/$name" > ~/dir_tmp.json
-                mkdir ~server/config/$name
+                mkdir ~/server/config/$name
                 cat ~/dir_tmp.json | jq -r '.[] | select(.type=="file") | .download_url' | while read url; do
                     curl -L -o ~server/config/$name/$(basename $url) $url
                 done
