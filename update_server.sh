@@ -1,5 +1,6 @@
 
 while getopts "mpco" opt; do
+
     case $opt in
         m)
             curl -s "https://api.github.com/repos/RPink47/MC-FantasyPinkCraft/contents/instalations/mods" > ~/tmp.json
@@ -23,11 +24,24 @@ while getopts "mpco" opt; do
             curl -s "https://api.github.com/repos/RPink47/MC-FantasyPinkCraft/contents/instalations/config" > ~/tmp.json
             cat ~/tmp.json | jq -r '.[] | select(.type=="file") | .download_url' | while read url; do
                 echo "Downloading: $url"
-                curl -L -o $2$(basename $url) $url
+                curl -L -o ~/server/config$(basename $url) $url
             done
 
             cat ~/tmp.json | jq -r '.[] | select(.type=="dir") | .url' | while read dir_url; do
-                echo "found dir: $dir_url"
+                name= basename $dir_url
+                curl -s "https://api.github.com/repos/RPink47/MC-FantasyPinkCraft/contents/instalations/config/$name" > ~/dir_tmp.json
+                mkdir ~server/config/$name
+                cat ~/dir_tmp.json | jq -r '.[] | select(.type=="file") | .download_url' | while read url; do
+                    curl -L -o ~server/config/$name/$(basename $url) $url
+                done
+                cat ~/dir_tmp.json | jq -r '.[] | select(.type=="dir") | .url' | while read sub_dir_url; do
+                    sub_name= basename $sub_dir_url
+                    curl -s "https://api.github.com/repos/RPink47/MC-FantasyPinkCraft/contents/instalations/config/$sub_name" > ~/sub_dir_tmp.json
+                    mkdir ~server/config/$name/$sub_name
+                    cat ~/sub_dir_tmp.json | jq -r '.[] | select(.type=="file") | .download_url' | while read url; do
+                        curl -L -o ~server/config/$name/$sub_name/$(basename $url) $url
+                    done
+                done
             done
             ;;
         o)
