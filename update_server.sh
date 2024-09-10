@@ -24,7 +24,7 @@ while getopts "mpco" opt; do
             curl -s "https://api.github.com/repos/RPink47/MC-FantasyPinkCraft/contents/instalations/config" > ~/tmp.json
             cat ~/tmp.json | jq -r '.[] | select(.type=="file") | .download_url' | while read url; do
                 echo "Downloading: $url"
-                curl -L -o ~/server/config$(basename $url) $url
+                curl -L -o ~/server/config/$(basename $url) $url
             done
 
             cat ~/tmp.json | jq -r '.[] | select(.type=="dir") | .url' | while read dir_url; do
