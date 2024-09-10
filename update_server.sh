@@ -1,5 +1,5 @@
 
-while getopts "mpo" opt; do
+while getopts "mpco" opt; do
     case $opt in
         m)
             curl -s "https://api.github.com/repos/RPink47/MC-FantasyPinkCraft/contents/instalations/mods" > ~/tmp.json
@@ -17,6 +17,16 @@ while getopts "mpo" opt; do
             cat ~/tmp.json | jq -r '.[] | select(.type=="file") | .download_url' | while read url; do
                 echo "Downloading: $url"
                 curl -L -o ~/server/plugins/$(basename $url) $url
+            done
+            ;;
+        c)
+            curl -s "https://api.github.com/repos/RPink47/MC-FantasyPinkCraft/contents/config" > ~/tmp.json
+            cat ~/tmp.json | jq -r '.[] | select(.type=="file") | .download_url' | while read url; do
+                echo "Downloading: $url"
+                curl -L -o $2$(basename $url) $url
+            done
+            cat directory.json | jq -r '.[] | select(.type=="dir") | .url' | while read dir_url; do
+                echo "found dir: $dir_url"
             done
             ;;
         o)
