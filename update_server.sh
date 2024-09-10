@@ -25,7 +25,8 @@ while getopts "mpco" opt; do
                 echo "Downloading: $url"
                 curl -L -o $2$(basename $url) $url
             done
-            cat directory.json | jq -r '.[] | select(.type=="dir") | .url' | while read dir_url; do
+
+            cat ~/tmp.json | jq -r '.[] | select(.type=="dir") | .url' | while read dir_url; do
                 echo "found dir: $dir_url"
             done
             ;;
