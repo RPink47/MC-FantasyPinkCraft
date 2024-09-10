@@ -3,7 +3,7 @@ while getopts "mpco" opt; do
 
     case $opt in
         m)
-            curl -s "https://api.github.com/repos/RPink47/MC-FantasyPinkCraft/contents/instalations/mods" > ~/tmp.json
+            curl -s "https://api.github.com/repos/RPink47/MC-FantasyPinkCraft/contents/server-mods" > ~/tmp.json
 
             # Extract and download files
             cat ~/tmp.json | jq -r '.[] | select(.type=="file") | .download_url' | while read url; do
