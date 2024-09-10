@@ -20,7 +20,7 @@ while getopts "mpco" opt; do
             done
             ;;
         c)
-            curl -s "https://api.github.com/repos/RPink47/MC-FantasyPinkCraft/contents/config" > ~/tmp.json
+            curl -s "https://api.github.com/repos/RPink47/MC-FantasyPinkCraft/contents/instalations/config" > ~/tmp.json
             cat ~/tmp.json | jq -r '.[] | select(.type=="file") | .download_url' | while read url; do
                 echo "Downloading: $url"
                 curl -L -o $2$(basename $url) $url
@@ -30,7 +30,7 @@ while getopts "mpco" opt; do
             done
             ;;
         o)
-            echo "Not implemented yet"
+            echo 'Please use: curl -L -o ~/update_server.sh "https://raw.githubusercontent.com/RPink47/MC-FantasyPinkCraft/main/update_server.sh"'
             ;;
         \? )
             echo "Invalid option: -$OPTARG" >&2
