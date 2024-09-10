@@ -1,5 +1,4 @@
 
-
 while getopts "mpo" opt; do
     case $opt in
         m)
@@ -21,7 +20,7 @@ while getopts "mpo" opt; do
             done
             ;;
         o)
-            file=$OPTARG
+            echo "Not implemented yet"
             ;;
         \? )
             echo "Invalid option: -$OPTARG" >&2
